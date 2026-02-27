@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FarmTrack BioSciences - Leading provider of organic biopesticides, biological pest control solutions, and eco-friendly agricultural products. Sustainable farming solutions for modern agriculture." />
+    <meta name="keywords" content="biopesticides, organic pesticides, biological pest control, sustainable agriculture, eco-friendly farming, IPM solutions, natural pest management, organic farming products, biological control agents, environmentally safe pesticides" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#25D366" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FarmTrack" />
+    <meta name="application-name" content="FarmTrack" />
+    <meta name="msapplication-TileColor" content="#25D366" />
+    <meta name="msapplication-config" content="./browserconfig.xml" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="144x144" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="120x120" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="114x114" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="72x72" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="60x60" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="57x57" href="./favicon.svg" />
+    
+    <!-- Splash Screens for iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="FarmTrack BioSciences - Organic Biopesticides & Sustainable Agriculture Solutions" />
+    <meta property="og:description" content="Revolutionary biopesticides and organic pest control solutions for sustainable farming. Eco-friendly alternatives to chemical pesticides." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://farmtrack.com" />
+    <meta property="og:image" content="./og-image.jpg" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FarmTrack BioSciences - Organic Biopesticides Solutions" />
+    <meta name="twitter:description" content="Leading provider of biopesticides and organic pest control solutions for sustainable agriculture." />
+    
+    <title>FarmTrack BioSciences - Organic Biopesticides & Sustainable Agriculture Solutions</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./src/main.tsx" as="script" />
+    <link rel="preconnect" href="https://images.pexels.com" />
+    <link rel="preconnect" href="https://i.postimg.cc" />
+    
+    <!-- DNS Prefetch for Performance -->
+    <link rel="dns-prefetch" href="//images.pexels.com" />
+    <link rel="dns-prefetch" href="//i.postimg.cc" />
+    
+    <!-- PWA Installation Script -->
+    <script>
+      // PWA Installation Detection
+      window.addEventListener('load', () => {
+        // Check if app is already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+          console.log('PWA: App is running in standalone mode');
+          document.body.classList.add('pwa-installed');
+        }
+        
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('./sw.js')
+            .then(registration => {
+              console.log('PWA: Service Worker registered', registration);
+            })
+            .catch(error => {
+              console.log('PWA: Service Worker registration failed', error);
+            });
+        }
+      });
+      
+      // Handle install prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        console.log('PWA: Install prompt ready');
+      });
+      
+      // Track installation
+      window.addEventListener('appinstalled', () => {
+        console.log('PWA: App installed successfully');
+        deferredPrompt = null;
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./src/main.tsx"></script>
+    
+    <!-- Fallback for no-script users -->
+    <noscript>
+      <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+        <h1>FarmTrack BioSciences</h1>
+        <p>This application requires JavaScript to run. Please enable JavaScript in your browser.</p>
+      </div>
+    </noscript>
+  </body>
+</html>

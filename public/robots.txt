@@ -1,0 +1,36 @@
+# Robots.txt for FarmTrack BioSciences
+# https://farmtrack.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# XML Sitemap location
+Sitemap: https://farmtrack.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Block access to admin areas (if any in future)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.env
+Disallow: /node_modules/
+
+# Allow important pages
+Allow: /products
+Allow: /performance
+Allow: /gallery
+Allow: /map
+Allow: /about
+Allow: /faq
+
+# Allow search engines to access CSS and JS files
+Allow: /assets/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp

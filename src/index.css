@@ -1,0 +1,528 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-gray-800;
+}
+
+/* PWA Specific Styles */
+.pwa-installed {
+  /* Styles for when app is installed */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* iOS PWA Status Bar */
+@supports (padding: max(0px)) {
+  .pwa-installed {
+    padding-top: max(20px, env(safe-area-inset-top));
+  }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/80;
+}
+
+/* Enhanced breathing animation for titles */
+.title-animation {
+  @apply animate-breathing;
+}
+
+/* Scale up animation for dropdowns */
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.95) translateX(-50%);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateX(-50%);
+    opacity: 1;
+  }
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.2s ease-out;
+}
+
+/* Enhanced glassmorphism effects for header with green tint */
+.glass-header {
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.25) 0%, rgba(37, 211, 102, 0.15) 50%, rgba(255,255,255,0.1) 100%);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.2), 
+              inset 0 1px 0 rgba(255,255,255,0.3), 
+              inset 0 -1px 0 rgba(37, 211, 102, 0.1);
+}
+
+.glass-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.4), transparent);
+}
+
+/* Glass dropdown menu effects */
+.glass-dropdown {
+  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.1);
+}
+
+/* Custom button styles */
+.btn {
+  @apply px-6 py-2 rounded-full transition-all duration-300 font-medium shadow-button;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:shadow-button-hover hover:scale-105;
+}
+
+.btn-outline {
+  @apply border border-primary text-primary hover:bg-primary/10 hover:shadow-button-hover hover:scale-105;
+}
+
+.btn-white {
+  @apply bg-white text-primary hover:shadow-md hover:scale-105;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-xl shadow-card p-6 transition-all duration-300;
+}
+
+.card:hover {
+  @apply shadow-card-hover transform scale-[1.02];
+}
+
+/* Product card styles */
+.product-card {
+  @apply bg-white rounded-xl shadow-card transition-all duration-300 cursor-pointer overflow-hidden;
+}
+
+.product-card:hover {
+  @apply shadow-card-hover transform scale-[1.02];
+  box-shadow: 0 0 30px rgba(37, 211, 102, 0.3), 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+/* Image hover effect */
+.img-hover {
+  @apply transition-all duration-300;
+}
+
+.img-hover:hover {
+  @apply transform scale-[1.03];
+}
+
+/* Section padding */
+.section-padding {
+  @apply py-20 px-4 md:px-8 lg:px-16;
+}
+
+/* Overlay styles */
+.product-overlay {
+  @apply fixed inset-0 bg-black/50 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300;
+}
+
+.product-overlay.active {
+  @apply opacity-100 pointer-events-auto;
+}
+
+.overlay-content {
+  @apply bg-secondary rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 transform scale-95 opacity-0 transition-all duration-300;
+}
+
+.overlay-content.active {
+  @apply scale-100 opacity-100;
+}
+
+/* FAQ accordion styles */
+.faq-item {
+  @apply bg-white rounded-xl shadow-card mb-4 overflow-hidden;
+}
+
+.faq-question {
+  @apply p-4 flex justify-between items-center cursor-pointer;
+}
+
+.faq-answer {
+  @apply p-4 pt-0 max-h-0 overflow-hidden transition-all duration-300;
+}
+
+.faq-answer.active {
+  @apply max-h-[500px] pt-2;
+}
+
+/* Floating help button */
+.help-button {
+  @apply fixed bottom-6 right-6 w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg z-40 transition-all duration-300;
+}
+
+.help-button:hover {
+  @apply transform scale-110 shadow-xl;
+}
+
+/* Social media button glow effect */
+.social-glow {
+  @apply relative overflow-hidden;
+}
+
+.social-glow::after {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: radial-gradient(circle at center, var(--hover-color) 0%, transparent 70%);
+}
+
+.social-glow:hover::after {
+  @apply opacity-20;
+}
+
+/* Search suggestions */
+.search-suggestions {
+  @apply absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-60 overflow-y-auto z-10;
+}
+
+.search-suggestion-item {
+  @apply px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Reviews Scroll Animation - Right to Left */
+@keyframes scrollRightToLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-right-to-left {
+  animation: scrollRightToLeft 60s linear infinite !important;
+}
+
+/* Ensure animation never pauses */
+.animate-scroll-right-to-left:hover {
+  animation-play-state: running !important;
+}
+
+/* 3D Button Shine Animation */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* PWA Install Animation - Slide in from bottom */
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.4s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.floating-right-slow {
+  animation: floatRightSlow 8s ease-in-out infinite;
+}
+
+.floating-left-slow {
+  animation: floatLeftSlow 8s ease-in-out infinite;
+}
+
+.hover-3d {
+  transition: all 0.3s ease;
+}
+
+.hover-3d:hover {
+  transform: scale(1.05) rotateY(3deg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced 3D glass effect */
+.glass-3d {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-3d:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Simplified Feature Tiles */
+.feature-tile-simple {
+  transition: all 0.3s ease;
+}
+
+.feature-tile-simple:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.15) !important;
+}
+
+.floating-image-container {
+  perspective: 1000px;
+}
+
+.image-frame {
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced header backdrop blur support */
+@supports (backdrop-filter: blur(12px)) {
+  .backdrop-blur-md {
+    backdrop-filter: blur(12px);
+  }
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+  .backdrop-blur-xl {
+    backdrop-filter: blur(24px);
+  }
+}
+
+/* Screen reader only content for SEO */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Responsive adjustments for feature tiles */
+@media (max-width: 1024px) {
+  .feature-tile-simple {
+    min-height: auto !important;
+    padding: 20px !important;
+  }
+  
+  .feature-tile-simple .flex {
+    flex-direction: column !important;
+  }
+  
+  .feature-tile-simple .w-3\/5 {
+    width: 100% !important;
+  }
+  
+  .feature-tile-simple .w-2\/5 {
+    width: 100% !important;
+  }
+  
+  .feature-tile-simple .pr-8 {
+    padding-right: 0 !important;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Enhanced mobile menu animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Header scroll effects */
+.header-scrolled {
+  @apply bg-white/95 backdrop-blur-md shadow-lg;
+}
+
+/* Enhanced button hover effects */
+.btn-enhanced {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-enhanced:hover::before {
+  left: 100%;
+}
+
+/* Professional header styles */
+.header-professional {
+  font-family: 'Montserrat', 'Open Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced focus states for accessibility */
+.focus-visible:focus {
+  outline: 2px solid #2E8B57;
+  outline-offset: 2px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .header-mobile {
+    height: 60px;
+  }
+  
+  .mobile-menu-item {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Desktop responsive adjustments */
+@media (min-width: 1200px) {
+  .header-desktop {
+    height: 80px;
+  }
+  
+  .nav-item-desktop {
+    padding: 16px 24px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .header-contrast {
+    border-bottom: 2px solid #000;
+  }
+  
+  .nav-link-contrast {
+    border: 1px solid transparent;
+  }
+  
+  .nav-link-contrast:focus {
+    border-color: #000;
+  }
+}
+
+/* Offline indicator */
+.offline-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #f59e0b;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  z-index: 9999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.offline-indicator.show {
+  transform: translateY(0);
+}
+
+/* PWA Splash Screen Styles */
+@media (display-mode: standalone) {
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Hide address bar on mobile PWA */
+  .header {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* iOS PWA specific styles */
+@supports (-webkit-touch-callout: none) {
+  .pwa-installed {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
