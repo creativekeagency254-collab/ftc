@@ -51,8 +51,8 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 z-50 transition-all duration-500 ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+      className={`fixed inset-x-0 z-50 transform-gpu transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        isVisible ? 'translate-y-0 scale-100 opacity-100' : '-translate-y-[112%] scale-[0.985] opacity-0'
       }`}
       style={{ top: '16px', padding: '0 14px' }}
     >
@@ -67,7 +67,7 @@ const Header: React.FC = () => {
           transform: 'translateZ(0)',
         }}
       >
-        <div className="flex h-16 items-center justify-between px-4 sm:h-[70px] sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between px-4 sm:h-[60px] sm:px-6 lg:px-8">
           <Link to="/" className="flex min-w-0 items-center gap-2.5" onClick={() => window.scrollTo(0, 0)}>
             <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-slate-200 bg-white p-1">
               <img
@@ -153,15 +153,20 @@ const Header: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => window.scrollTo(0, 0)}
-                className={({ isActive }) =>
-                  `block rounded-md px-3 py-2.5 text-sm font-medium ${
+                className={({ isActive }) => {
+                  const isBioproducts = link.path === '/products';
+                  return `block rounded-md border px-3 py-2.5 text-sm font-medium transition-all duration-300 ${
                     isActive
-                      ? 'bg-primary/20 text-primary'
-                      : isHomePage
-                        ? 'text-slate-100 hover:bg-white/10 hover:text-primary'
-                        : 'text-slate-700 hover:bg-slate-50 hover:text-primary'
+                      ? 'border-primary/40 bg-primary text-white shadow-sm'
+                      : isBioproducts
+                        ? isHomePage
+                          ? 'border-emerald-200/40 bg-emerald-500/15 text-emerald-100 hover:bg-emerald-500/25'
+                          : 'border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
+                        : isHomePage
+                          ? 'border-transparent text-slate-100 hover:bg-white/10 hover:text-primary'
+                          : 'border-transparent text-slate-700 hover:bg-slate-50 hover:text-primary'
                   }`
-                }
+                }}
               >
                 {link.name}
               </NavLink>
