@@ -1,16 +1,14 @@
 const PAYSTACK_API_BASE = 'https://api.paystack.co';
 const DEFAULT_AMOUNT_KSH = 2;
 
-const jsonResponse = (statusCode, payload) => ({
-  statusCode,
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  },
-  body: JSON.stringify(payload),
-});
+const jsonResponse = (res, statusCode, payload) => {
+  res.status(statusCode);
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.send(JSON.stringify(payload));
+};
 
 const paystackRequest = async (secretKey, path, method = 'GET', body) => {
   const response = await fetch(`${PAYSTACK_API_BASE}${path}`, {
@@ -23,7 +21,6 @@ const paystackRequest = async (secretKey, path, method = 'GET', body) => {
   });
 
   const payload = await response.json().catch(() => ({}));
-
   if (!response.ok || payload.status === false) {
     const message = payload.message || `Paystack request failed at ${path}`;
     throw new Error(message);
@@ -37,12 +34,15 @@ const splitName = (fullName) => {
     .trim()
     .split(/\s+/)
     .filter(Boolean);
+
   if (!tokens.length) {
     return { firstName: 'FarmTrack', lastName: 'Customer' };
   }
-  const firstName = tokens[0];
-  const lastName = tokens.slice(1).join(' ') || 'Customer';
-  return { firstName, lastName };
+
+  return {
+    firstName: tokens[0],
+    lastName: tokens.slice(1).join(' ') || 'Customer',
+  };
 };
 
 const getOrCreateCustomerCode = async (secretKey, email, customerName, customerPhone) => {
@@ -100,25 +100,37 @@ const notifyDealerBySupabase = async ({ payload, supabaseUrl, supabaseServiceRol
   return fallbackResponse.ok || fallbackResponse.status === 409;
 };
 
-exports.handler = async (event) => {
-  if (event.httpMethod === 'OPTIONS') {
-    return jsonResponse(200, { ok: true });
+const readRequestBody = async (req) => {
+  if (req.body && typeof req.body === 'object') {
+    return req.body;
   }
 
-  if (event.httpMethod !== 'POST') {
-    return jsonResponse(405, { status: false, message: 'Method not allowed' });
+  if (typeof req.body === 'string' && req.body.trim()) {
+    return JSON.parse(req.body);
+  }
+
+  return {};
+};
+
+export default async function handler(req, res) {
+  if (req.method === 'OPTIONS') {
+    return jsonResponse(res, 200, { ok: true });
+  }
+
+  if (req.method !== 'POST') {
+    return jsonResponse(res, 405, { status: false, message: 'Method not allowed' });
   }
 
   const paystackSecretKey = process.env.PAYSTACK_SECRET_KEY || process.env.VITE_PAYSTACK_SECRET_KEY;
   if (!paystackSecretKey) {
-    return jsonResponse(500, { status: false, message: 'PAYSTACK_SECRET_KEY is not configured.' });
+    return jsonResponse(res, 500, { status: false, message: 'PAYSTACK_SECRET_KEY is not configured.' });
   }
 
   let body;
   try {
-    body = JSON.parse(event.body || '{}');
+    body = await readRequestBody(req);
   } catch {
-    return jsonResponse(400, { status: false, message: 'Invalid JSON payload.' });
+    return jsonResponse(res, 400, { status: false, message: 'Invalid JSON payload.' });
   }
 
   const email = String(body.email || '').trim();
@@ -128,19 +140,20 @@ exports.handler = async (event) => {
   const amountKsh = Number(body.amountKsh || DEFAULT_AMOUNT_KSH);
 
   if (!email || !customerName || !customerPhone) {
-    return jsonResponse(400, {
+    return jsonResponse(res, 400, {
       status: false,
       message: 'Missing required fields: email, customerName, customerPhone.',
     });
   }
 
   if (!Number.isFinite(amountKsh) || amountKsh <= 0) {
-    return jsonResponse(400, { status: false, message: 'Invalid amount supplied.' });
+    return jsonResponse(res, 400, { status: false, message: 'Invalid amount supplied.' });
   }
 
   try {
     const customerCode = await getOrCreateCustomerCode(paystackSecretKey, email, customerName, customerPhone);
     const amountInKobo = Math.round(amountKsh * 100);
+
     const paymentRequest = await paystackRequest(paystackSecretKey, '/paymentrequest', 'POST', {
       customer: customerCode,
       amount: amountInKobo,
@@ -170,7 +183,7 @@ exports.handler = async (event) => {
       supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
     });
 
-    return jsonResponse(200, {
+    return jsonResponse(res, 200, {
       status: true,
       message: 'Paystack invoice sent directly to customer email.',
       requestCode: paymentRequest.data?.request_code,
@@ -178,9 +191,9 @@ exports.handler = async (event) => {
       dealerNotified,
     });
   } catch (error) {
-    return jsonResponse(500, {
+    return jsonResponse(res, 500, {
       status: false,
       message: error instanceof Error ? error.message : 'Failed to send invoice via Paystack.',
     });
   }
-};
+}

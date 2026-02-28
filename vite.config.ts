@@ -94,7 +94,7 @@ const paystackInvoiceDevPlugin = ({
     const notifyDealerBySupabase = async (payload: Record<string, unknown>): Promise<boolean> => {
       if (!supabaseUrl || !supabaseServiceRoleKey) return false;
 
-      const response = await fetch(`${supabaseUrl}/rest/v1/invoice_requests`, {
+      const invoiceResponse = await fetch(`${supabaseUrl}/rest/v1/invoice_requests`, {
         method: 'POST',
         headers: {
           apikey: supabaseServiceRoleKey,
@@ -105,10 +105,26 @@ const paystackInvoiceDevPlugin = ({
         body: JSON.stringify([payload]),
       });
 
-      return response.ok;
+      if (invoiceResponse.ok) return true;
+
+      const email = String(payload.email || '').trim();
+      if (!email) return false;
+
+      const fallbackResponse = await fetch(`${supabaseUrl}/rest/v1/email_subscriptions`, {
+        method: 'POST',
+        headers: {
+          apikey: supabaseServiceRoleKey,
+          Authorization: `Bearer ${supabaseServiceRoleKey}`,
+          'Content-Type': 'application/json',
+          Prefer: 'resolution=ignore-duplicates,return=minimal',
+        },
+        body: JSON.stringify([{ email, source: 'invoice_request' }]),
+      });
+
+      return fallbackResponse.ok || fallbackResponse.status === 409;
     };
 
-    server.middlewares.use('/.netlify/functions/paystack-invoice', async (req: any, res: any) => {
+    const invoiceHandler = async (req: any, res: any) => {
       if (req.method === 'OPTIONS') {
         jsonResponse(res, 200, { ok: true });
         return;
@@ -199,7 +215,11 @@ const paystackInvoiceDevPlugin = ({
           message: error instanceof Error ? error.message : 'Failed to send invoice via Paystack.',
         });
       }
-    });
+    };
+
+    for (const endpointPath of ['/api/paystack-invoice', '/.netlify/functions/paystack-invoice']) {
+      server.middlewares.use(endpointPath, invoiceHandler);
+    }
   },
 });
 

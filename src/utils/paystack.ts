@@ -72,7 +72,11 @@ interface PaystackInvoiceResponse {
 }
 
 export const PAYSTACK_FIXED_AMOUNT_KSH = 2;
-export const PAYSTACK_INVOICE_ENDPOINT = import.meta.env.VITE_PAYSTACK_INVOICE_ENDPOINT || '/.netlify/functions/paystack-invoice';
+const configuredInvoiceEndpoint = String(import.meta.env.VITE_PAYSTACK_INVOICE_ENDPOINT || '').trim();
+const PAYSTACK_INVOICE_ENDPOINT_CANDIDATES = Array.from(
+  new Set([configuredInvoiceEndpoint, '/api/paystack-invoice', '/.netlify/functions/paystack-invoice'].filter(Boolean))
+);
+export const PAYSTACK_INVOICE_ENDPOINT = PAYSTACK_INVOICE_ENDPOINT_CANDIDATES[0] || '';
 
 export const startPaystackCheckout = async ({
   email,
@@ -123,49 +127,88 @@ export const requestPaystackInvoice = async ({
   productName,
   amountKsh,
 }: PaystackInvoiceRequestParams): Promise<PaystackInvoiceResponse> => {
-  if (!PAYSTACK_INVOICE_ENDPOINT) {
+  if (!PAYSTACK_INVOICE_ENDPOINT_CANDIDATES.length) {
     throw new Error('Paystack invoice endpoint is not configured.');
   }
-
-  const response = await fetch(PAYSTACK_INVOICE_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email,
-      customerName,
-      customerPhone,
-      productName,
-      amountKsh,
-    }),
+  const requestBody = JSON.stringify({
+    email,
+    customerName,
+    customerPhone,
+    productName,
+    amountKsh,
   });
 
-  const contentType = response.headers.get('content-type') || '';
-  const isJson = contentType.includes('application/json');
+  let lastError: Error | null = null;
 
-  if (!response.ok) {
-    if (isJson) {
-      const payload = (await response.json().catch(() => null)) as PaystackInvoiceResponse | null;
-      throw new Error(payload?.message || 'Failed to request invoice.');
+  for (let index = 0; index < PAYSTACK_INVOICE_ENDPOINT_CANDIDATES.length; index += 1) {
+    const endpoint = PAYSTACK_INVOICE_ENDPOINT_CANDIDATES[index];
+    const hasNextEndpoint = index < PAYSTACK_INVOICE_ENDPOINT_CANDIDATES.length - 1;
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: requestBody,
+      });
+
+      const contentType = response.headers.get('content-type') || '';
+      const isJson = contentType.includes('application/json');
+
+      if (!response.ok) {
+        let errorMessage = 'Failed to request invoice.';
+        if (isJson) {
+          const payload = (await response.json().catch(() => null)) as PaystackInvoiceResponse | null;
+          errorMessage = payload?.message || errorMessage;
+        } else {
+          const message = await response.text().catch(() => '');
+          errorMessage = message || errorMessage;
+        }
+
+        const endpointError = new Error(errorMessage);
+        if (response.status === 404 && hasNextEndpoint) {
+          lastError = endpointError;
+          continue;
+        }
+
+        throw endpointError;
+      }
+
+      if (isJson) {
+        const payload = (await response.json().catch(() => null)) as PaystackInvoiceResponse | null;
+        if (payload && payload.status === false) {
+          throw new Error(payload.message || 'Failed to request invoice.');
+        }
+        if (payload) {
+          return payload;
+        }
+      }
+
+      return {
+        status: true,
+        message: 'Invoice sent successfully.',
+      };
+    } catch (error) {
+      const endpointError =
+        error instanceof Error ? error : new Error('Failed to request invoice.');
+
+      if (hasNextEndpoint) {
+        const message = endpointError.message.toLowerCase();
+        const isMissingEndpoint =
+          message.includes('not found') ||
+          message.includes('not_found') ||
+          message.includes('page could not be found') ||
+          message.includes('failed to fetch');
+        if (isMissingEndpoint) {
+          lastError = endpointError;
+          continue;
+        }
+      }
+
+      throw endpointError;
     }
-
-    const message = await response.text().catch(() => '');
-    throw new Error(message || 'Failed to request invoice.');
   }
 
-  if (isJson) {
-    const payload = (await response.json().catch(() => null)) as PaystackInvoiceResponse | null;
-    if (payload && payload.status === false) {
-      throw new Error(payload.message || 'Failed to request invoice.');
-    }
-    if (payload) {
-      return payload;
-    }
-  }
-
-  return {
-    status: true,
-    message: 'Invoice sent successfully.',
-  };
+  throw lastError || new Error('Failed to request invoice.');
 };

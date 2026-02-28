@@ -14,8 +14,12 @@ import { createClient } from '@supabase/supabase-js';
  */
 
 // ✅ DIRECT VALUES FOR DEPLOYMENT
-const supabaseUrl = 'https://zrkwppmicazkvdtzobzh.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpya3dwcG1pY2F6a3ZkdHpvYnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyNTA5NTIsImV4cCI6MjA2NTgyNjk1Mn0.xvbm6bnVVyafN6umCjnSNcyW7VCdcjwBnYUUBhgMWdM';
+const supabaseUrl =
+  import.meta.env.VITE_SUPABASE_URL || 'https://zrkwppmicazkvdtzobzh.supabase.co';
+const supabaseAnonKey =
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpya3dwcG1pY2F6a3ZkdHpvYnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyNTA5NTIsImV4cCI6MjA2NTgyNjk1Mn0.xvbm6bnVVyafN6umCjnSNcyW7VCdcjwBnYUUBhgMWdM';
 
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase configuration');
