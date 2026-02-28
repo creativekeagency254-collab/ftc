@@ -41,3 +41,15 @@ export type EmailSubscriptionData = {
   is_active?: boolean;
   source?: string;
 };
+
+export type InvoiceRequestData = {
+  id?: string;
+  customer_name: string;
+  email: string;
+  phone: string;
+  product_name: string;
+  amount_ksh?: number;
+  channel?: string;
+  status?: string;
+  requested_at?: string;
+};

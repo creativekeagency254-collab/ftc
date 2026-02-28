@@ -39,9 +39,9 @@ const FaqPage: React.FC = () => {
         <meta property="og:title" content="Frequently Asked Questions | FarmTrack BioSciences" />
         <meta property="og:description" content="Get answers to common questions about our biopesticides, organic solutions, and sustainable agricultural products." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://farmtrack.com/faq" />
+        <meta property="og:url" content="http://farmtrack.co.ke/faq" />
         <meta property="og:image" content="/og-image.jpg" />
-        <link rel="canonical" href="https://farmtrack.com/faq" />
+        <link rel="canonical" href="http://farmtrack.co.ke/faq" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

@@ -43,7 +43,7 @@ body {
 
 /* Enhanced breathing animation for titles */
 .title-animation {
-  @apply animate-breathing;
+  @apply tracking-tight;
 }
 
 /* Scale up animation for dropdowns */
@@ -95,38 +95,37 @@ body {
 
 /* Custom button styles */
 .btn {
-  @apply px-6 py-2 rounded-full transition-all duration-300 font-medium shadow-button;
+  @apply inline-flex items-center justify-center rounded-md px-5 py-2.5 font-medium transition-colors duration-200;
 }
 
 .btn-primary {
-  @apply bg-primary text-white hover:shadow-button-hover hover:scale-105;
+  @apply bg-primary text-white hover:bg-primary/90;
 }
 
 .btn-outline {
-  @apply border border-primary text-primary hover:bg-primary/10 hover:shadow-button-hover hover:scale-105;
+  @apply border border-primary text-primary hover:bg-primary/10;
 }
 
 .btn-white {
-  @apply bg-white text-primary hover:shadow-md hover:scale-105;
+  @apply bg-white text-primary hover:bg-gray-100;
 }
 
 /* Card styles */
 .card {
-  @apply bg-white rounded-xl shadow-card p-6 transition-all duration-300;
+  @apply rounded-xl border border-slate-200 bg-white p-6 shadow-sm;
 }
 
 .card:hover {
-  @apply shadow-card-hover transform scale-[1.02];
+  @apply shadow-md;
 }
 
 /* Product card styles */
 .product-card {
-  @apply bg-white rounded-xl shadow-card transition-all duration-300 cursor-pointer overflow-hidden;
+  @apply cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow duration-200;
 }
 
 .product-card:hover {
-  @apply shadow-card-hover transform scale-[1.02];
-  box-shadow: 0 0 30px rgba(37, 211, 102, 0.3), 0 0 50px rgba(0, 0, 0, 0.1);
+  @apply shadow-md;
 }
 
 /* Image hover effect */
@@ -140,7 +139,7 @@ body {
 
 /* Section padding */
 .section-padding {
-  @apply py-20 px-4 md:px-8 lg:px-16;
+  @apply px-4 py-14 md:px-8 md:py-16 lg:px-16;
 }
 
 /* Overlay styles */
@@ -179,11 +178,61 @@ body {
 
 /* Floating help button */
 .help-button {
-  @apply fixed bottom-6 right-6 w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg z-40 transition-all duration-300;
+  @apply z-40 rounded-full bg-primary text-white shadow-lg transition-colors duration-200;
 }
 
 .help-button:hover {
-  @apply transform scale-110 shadow-xl;
+  @apply bg-primary/90;
+}
+
+@keyframes supportPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.22);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.22);
+    opacity: 0;
+  }
+}
+
+.support-pulse {
+  animation: supportPulse 2s ease-out infinite;
+}
+
+@keyframes supportSheetIn {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.support-sheet {
+  animation: supportSheetIn 220ms ease-out;
+}
+
+@keyframes supportFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.support-float {
+  animation: supportFloat 2.8s ease-in-out infinite;
 }
 
 /* Social media button glow effect */
@@ -208,6 +257,15 @@ body {
 
 .search-suggestion-item {
   @apply px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Marquee Animation */
@@ -516,6 +574,84 @@ html {
     padding-top: constant(safe-area-inset-top);
     padding-top: env(safe-area-inset-top);
   }
+}
+
+/* Glassmorphism + 3D Header */
+.header-glass-shell {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  box-shadow:
+    0 24px 40px rgba(2, 6, 23, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(2, 6, 23, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.header-glass-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.18) 100%);
+}
+
+.header-glass-shell:hover {
+  transform: translateY(-1px) rotateX(1deg);
+  box-shadow:
+    0 28px 50px rgba(2, 6, 23, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(2, 6, 23, 0.12);
+}
+
+/* Performance Page Animation System */
+@keyframes performanceRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes progressGlow {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.18);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+.performance-hero {
+  position: relative;
+}
+
+.performance-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(22, 163, 74, 0.14), transparent 35%),
+    radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.12), transparent 35%);
+}
+
+.performance-stat-card {
+  animation: performanceRise 0.6s ease-out both;
+}
+
+.performance-progress {
+  animation: progressGlow 1.8s ease-in-out infinite;
+}
+
+.performance-chart-card {
+  animation: performanceRise 0.65s ease-out both;
 }
 
 /* Reduced motion support */

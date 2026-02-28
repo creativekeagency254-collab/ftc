@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 import SectionTitle from '../components/ui/SectionTitle';
 import ProductCard, { Product } from '../components/products/ProductCard';
 import ProductOverlay from '../components/products/ProductOverlay';
 import SearchBar from '../components/products/SearchBar';
 import { products, ProductCategory } from '../data/products';
 
+const CATEGORY_IDS: ProductCategory[] = [
+  'fruit-fly-solutions',
+  'accessories',
+  'biopesticide-solutions',
+  'lepidopteran-solutions',
+  'fungicide-solutions',
+];
+
 const ProductsPage: React.FC = () => {
+  const location = useLocation();
   const [activeCategory, setActiveCategory] = useState<ProductCategory>('fruit-fly-solutions');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,6 +28,15 @@ const ProductsPage: React.FC = () => {
     { id: 'lepidopteran-solutions', name: 'Lepidopteran / Moth Solutions' },
     { id: 'fungicide-solutions', name: 'Fungicide Solutions' }
   ];
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const category = params.get('category') as ProductCategory | null;
+
+    if (category && CATEGORY_IDS.includes(category)) {
+      setActiveCategory(category);
+    }
+  }, [location.search]);
 
   const filteredProducts = products
     .filter(product => product.subCategory === activeCategory)
@@ -60,16 +79,16 @@ const ProductsPage: React.FC = () => {
         <meta property="og:title" content="Comprehensive Biopesticides & Organic Pest Control Products | FarmTrack BioSciences" />
         <meta property="og:description" content="Discover our complete range of biopesticides, organic solutions, and sustainable agricultural products. From BACTROLURE to METATRACK PLUS - eco-friendly alternatives for modern farming." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://farmtrack.com/products" />
+        <meta property="og:url" content="http://farmtrack.co.ke/products" />
         <meta property="og:image" content="/og-image.jpg" />
-        <link rel="canonical" href="https://farmtrack.com/products" />
+        <link rel="canonical" href="http://farmtrack.co.ke/products" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             "name": "FarmTrack BioSciences Product Catalog",
             "description": "Comprehensive collection of biopesticides, organic pest control solutions, and sustainable agricultural products",
-            "url": "https://farmtrack.com/products",
+            "url": "http://farmtrack.co.ke/products",
             "mainEntity": {
               "@type": "ItemList",
               "numberOfItems": products.length,

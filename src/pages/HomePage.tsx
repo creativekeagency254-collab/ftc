@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../components/home/Hero';
 import FeatureTiles from '../components/home/FeatureTiles';
+import HomeFaqPreview from '../components/home/HomeFaqPreview';
 import Reviews from '../components/home/Reviews';
 
 const HomePage: React.FC = () => {
@@ -16,7 +17,7 @@ const HomePage: React.FC = () => {
         <meta property="og:title" content="FarmTrack BioSciences: Organic Biopesticides & Sustainable Pest Control Kenya" />
         <meta property="og:description" content="Revolutionize your farm with FarmTrack BioSciences. Discover eco-friendly biopesticides, pheromone lures, and IPM solutions for maize, tomatoes, coffee, and horticulture in Kenya & East Africa. Boost yields, reduce chemicals." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://farmtrack.co.ke/" />
+        <meta property="og:url" content="http://farmtrack.co.ke/" />
         <meta property="og:image" content="/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -39,17 +40,17 @@ const HomePage: React.FC = () => {
         <meta name="distribution" content="global" />
         <meta name="rating" content="general" />
         <meta name="revisit-after" content="7 days" />
-        <link rel="canonical" href="https://farmtrack.co.ke/" />
+        <link rel="canonical" href="http://farmtrack.co.ke/" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@graph": [
               {
                 "@type": "Organization",
-                "@id": "https://farmtrack.co.ke/#organization",
+                "@id": "http://farmtrack.co.ke/#organization",
                 "name": "FarmTrack BioSciences",
-                "url": "https://farmtrack.co.ke/",
-                "logo": "https://farmtrack.co.ke/favicon.svg",
+                "url": "http://farmtrack.co.ke/",
+                "logo": "http://farmtrack.co.ke/favicon.svg",
                 "description": "Leading provider of organic biopesticides, biological pest control solutions, and eco-friendly agricultural products in Kenya and East Africa.",
                 "contactPoint": {
                   "@type": "ContactPoint",
@@ -96,23 +97,23 @@ const HomePage: React.FC = () => {
               },
               {
                 "@type": "WebSite",
-                "@id": "https://farmtrack.co.ke/#website",
-                "url": "https://farmtrack.co.ke/",
+                "@id": "http://farmtrack.co.ke/#website",
+                "url": "http://farmtrack.co.ke/",
                 "name": "FarmTrack BioSciences",
                 "description": "Revolutionizing agriculture with sustainable biopesticides and organic pest control in Kenya and East Africa.",
                 "publisher": {
-                  "@id": "https://farmtrack.co.ke/#organization"
+                  "@id": "http://farmtrack.co.ke/#organization"
                 },
                 "potentialAction": {
                   "@type": "SearchAction",
-                  "target": "https://farmtrack.co.ke/products?search={search_term_string}",
+                  "target": "http://farmtrack.co.ke/products?search={search_term_string}",
                   "query-input": "required name=search_term_string"
                 },
                 "inLanguage": "en-KE"
               },
               {
                 "@type": "LocalBusiness",
-                "@id": "https://farmtrack.co.ke/#localbusiness",
+                "@id": "http://farmtrack.co.ke/#localbusiness",
                 "name": "FarmTrack BioSciences",
                 "address": {
                   "@type": "PostalAddress",
@@ -124,8 +125,8 @@ const HomePage: React.FC = () => {
                 },
                 "telephone": "+254-711-495522",
                 "email": "farmtrack.consulting@gmail.com",
-                "url": "https://farmtrack.co.ke/",
-                "image": "https://farmtrack.co.ke/og-image.jpg",
+                "url": "http://farmtrack.co.ke/",
+                "image": "http://farmtrack.co.ke/og-image.jpg",
                 "priceRange": "KES",
                 "openingHoursSpecification": [
                   {
@@ -166,8 +167,9 @@ const HomePage: React.FC = () => {
       <div data-section="features">
         <FeatureTiles />
       </div>
+      <HomeFaqPreview />
       <Reviews />
-</>
+    </>
   );
 };
 

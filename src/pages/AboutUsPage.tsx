@@ -15,16 +15,16 @@ const AboutUsPage: React.FC = () => {
         <meta property="og:title" content="About FarmTrack BioSciences - Leading Biopesticides & Sustainable Agriculture Company" />
         <meta property="og:description" content="Discover how FarmTrack BioSciences has transformed agriculture for 200,000+ farmers across East Africa since 2010. Learn about our mission, values, and commitment to sustainable farming." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://farmtrack.com/about" />
+        <meta property="og:url" content="http://farmtrack.co.ke/about" />
         <meta property="og:image" content="/og-image.jpg" />
-        <link rel="canonical" href="https://farmtrack.com/about" />
+        <link rel="canonical" href="http://farmtrack.co.ke/about" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "name": "About FarmTrack BioSciences",
             "description": "Learn about FarmTrack BioSciences' mission, history, and impact on sustainable agriculture in East Africa",
-            "url": "https://farmtrack.com/about",
+            "url": "http://farmtrack.co.ke/about",
             "mainEntity": {
               "@type": "Organization",
               "name": "FarmTrack BioSciences",

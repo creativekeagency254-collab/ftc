@@ -2,6 +2,7 @@
   "name": "FarmTrack BioSciences - Organic Pest Control Solutions",
   "short_name": "FarmTrack",
   "description": "Leading provider of biopesticides and organic pest control solutions for sustainable agriculture in Kenya and East Africa",
+  "id": "/",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAF5EE",
@@ -11,12 +12,6 @@
   "lang": "en",
   "dir": "ltr",
   "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
@@ -40,22 +35,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "FarmTrack BioSciences Desktop View"
     },
     {
-      "src": "/screenshot-narrow.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "FarmTrack BioSciences Mobile View"
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
   "categories": ["agriculture", "business", "productivity", "education"],

@@ -22,10 +22,10 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
   return (
     <div 
       ref={ref}
-      className={`mb-12 ${centered ? 'text-center' : ''}`}
+      className={`mb-10 ${centered ? 'text-center' : ''}`}
     >
       <h2 
-        className={`text-3xl md:text-4xl font-bold title-animation mb-4 
+        className={`text-2xl md:text-3xl font-bold mb-3 tracking-tight 
           ${light ? 'text-white' : 'text-gray-800'}
           ${inView ? 'animate-fadeIn' : 'opacity-0'}`}
       >
@@ -33,7 +33,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
       </h2>
       {subtitle && (
         <p 
-          className={`text-lg max-w-3xl mx-auto 
+          className={`text-base md:text-lg max-w-3xl mx-auto 
             ${light ? 'text-gray-100' : 'text-gray-600'}
             ${inView ? 'animate-fadeIn' : 'opacity-0'}`}
           style={{ animationDelay: '0.2s' }}

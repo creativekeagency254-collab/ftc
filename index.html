@@ -2,8 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="canonical" href="http://farmtrack.co.ke/" />
+    <link rel="alternate" hrefLang="en-KE" href="http://farmtrack.co.ke/" />
+    <link rel="alternate" hrefLang="x-default" href="http://farmtrack.co.ke/" />
+    <link rel="alternate" type="text/plain" title="LLMs Index" href="/llms.txt" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="FarmTrack BioSciences - Leading provider of organic biopesticides, biological pest control solutions, and eco-friendly agricultural products. Sustainable farming solutions for modern agriculture." />
     <meta name="keywords" content="biopesticides, organic pesticides, biological pest control, sustainable agriculture, eco-friendly farming, IPM solutions, natural pest management, organic farming products, biological control agents, environmentally safe pesticides" />
@@ -17,18 +21,18 @@
     <meta name="apple-mobile-web-app-title" content="FarmTrack" />
     <meta name="application-name" content="FarmTrack" />
     <meta name="msapplication-TileColor" content="#25D366" />
-    <meta name="msapplication-config" content="./browserconfig.xml" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
     
     <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="152x152" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="144x144" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="120x120" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="114x114" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="76x76" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="72x72" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="60x60" href="./favicon.svg" />
-    <link rel="apple-touch-icon" sizes="57x57" href="./favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon.svg" />
     
     <!-- Splash Screens for iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -38,13 +42,19 @@
     <meta property="og:title" content="FarmTrack BioSciences - Organic Biopesticides & Sustainable Agriculture Solutions" />
     <meta property="og:description" content="Revolutionary biopesticides and organic pest control solutions for sustainable farming. Eco-friendly alternatives to chemical pesticides." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://farmtrack.com" />
-    <meta property="og:image" content="./og-image.jpg" />
+    <meta property="og:url" content="http://farmtrack.co.ke" />
+    <meta property="og:image" content="http://farmtrack.co.ke/og-image.jpg" />
+    <meta property="og:image:alt" content="FarmTrack BioSciences sustainable agriculture solutions" />
+    <meta property="og:site_name" content="FarmTrack BioSciences" />
+    <meta property="og:locale" content="en_KE" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="FarmTrack BioSciences - Organic Biopesticides Solutions" />
     <meta name="twitter:description" content="Leading provider of biopesticides and organic pest control solutions for sustainable agriculture." />
+    <meta name="twitter:image" content="http://farmtrack.co.ke/og-image.jpg" />
+    <meta name="twitter:site" content="@FarmTrackBio" />
+    <meta name="llms" content="http://farmtrack.co.ke/llms.txt" />
     
     <title>FarmTrack BioSciences - Organic Biopesticides & Sustainable Agriculture Solutions</title>
     
@@ -56,6 +66,34 @@
     <!-- DNS Prefetch for Performance -->
     <link rel="dns-prefetch" href="//images.pexels.com" />
     <link rel="dns-prefetch" href="//i.postimg.cc" />
+
+    <!-- Default structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "http://farmtrack.co.ke/#organization",
+            "name": "FarmTrack BioSciences",
+            "url": "http://farmtrack.co.ke/",
+            "logo": "http://farmtrack.co.ke/favicon.svg",
+            "telephone": "+254-711-495522",
+            "email": "farmtrack.consulting@gmail.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "http://farmtrack.co.ke/#website",
+            "url": "http://farmtrack.co.ke/",
+            "name": "FarmTrack BioSciences",
+            "publisher": {
+              "@id": "http://farmtrack.co.ke/#organization"
+            },
+            "inLanguage": "en-KE"
+          }
+        ]
+      }
+    </script>
     
     <!-- PWA Installation Script -->
     <script>
@@ -69,7 +107,7 @@
         
         // Register service worker
         if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('./sw.js')
+          navigator.serviceWorker.register('/sw.js')
             .then(registration => {
               console.log('PWA: Service Worker registered', registration);
             })

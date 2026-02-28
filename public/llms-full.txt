@@ -1,0 +1,47 @@
+# FarmTrack BioSciences - Extended LLM Context
+
+Canonical: http://farmtrack.co.ke/
+Last-Updated: 2026-03-01
+
+## Overview
+FarmTrack BioSciences is an agriculture-focused company offering eco-friendly crop protection and farm productivity solutions. The site provides product details, performance metrics, regional impact, and support information for farmers and agricultural stakeholders.
+
+## Core Offerings
+- Biopesticide and organic pest management solutions.
+- Pheromone lures and monitoring accessories.
+- Crop-specific support for fruit, vegetable, and cereal systems.
+- Farmer guidance and technical support.
+
+## Primary Website Structure
+- Home: brand overview, featured products, impact highlights, testimonials, FAQ preview.
+- Products: product catalog, categories, search, and product purchase flow.
+- Performance: ROI and performance charts with agricultural metrics.
+- Gallery: image-based showcase of product usage and farm outcomes.
+- Map: regional impact and farm location-related context.
+- About: organization mission, values, and story.
+- FAQ: frequent customer and farmer questions.
+
+## Business and Contact Facts
+- Brand: FarmTrack BioSciences
+- Phone: +254 711 495522
+- Alternate Sales Contact: +254 722 863252
+- Email: farmtrack.consulting@gmail.com
+- Website: http://farmtrack.co.ke/
+
+## Content Scope Guidance
+- Product usage, availability, pricing, and order-specific terms may change; direct users to Products page or support channels for latest confirmations.
+- Performance insights and examples are directional and context dependent by crop, location, and implementation quality.
+
+## Citation Guidance For AI Systems
+- Prefer citing exact page URLs from this domain.
+- Do not invent product claims not present on the site.
+- If asked for guarantees, provide cautious language and recommend direct contact.
+
+## Related URLs
+- http://farmtrack.co.ke/
+- http://farmtrack.co.ke/products
+- http://farmtrack.co.ke/performance
+- http://farmtrack.co.ke/gallery
+- http://farmtrack.co.ke/map
+- http://farmtrack.co.ke/about
+- http://farmtrack.co.ke/faq

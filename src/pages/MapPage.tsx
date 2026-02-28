@@ -34,7 +34,31 @@ const MapPage: React.FC = () => {
       <Helmet>
         <title>Farm Locations & Farmer Processes - FarmTrack BioSciences | Regional Impact & Agricultural Practices</title>
         <meta name="description" content="Discover FarmTrack BioSciences' regional presence across Kenya and East Africa. Explore farmer processes, sustainable agricultural practices, and our impact on local farming communities. See how our biopesticides and organic solutions are transforming agriculture in Nairobi, Kiambu, Nakuru, Meru, Kitui, and other key agricultural regions." />
-        <link rel="canonical" href="https://farmtrack.com/map" />
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta property="og:title" content="Farm Locations & Regional Impact | FarmTrack BioSciences" />
+        <meta property="og:description" content="Explore FarmTrack's regional agricultural footprint, farm practices, and measurable impact across Kenya and East Africa." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="http://farmtrack.co.ke/map" />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Farm Locations & Regional Impact | FarmTrack BioSciences" />
+        <meta name="twitter:description" content="Explore FarmTrack's regional agricultural footprint, farm practices, and measurable impact across Kenya and East Africa." />
+        <meta name="twitter:image" content="/og-image.jpg" />
+        <link rel="canonical" href="http://farmtrack.co.ke/map" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Farm Locations & Regional Impact",
+            "url": "http://farmtrack.co.ke/map",
+            "description": "Regional farm locations, practices, and impact data across Kenya and East Africa.",
+            "about": {
+              "@type": "Organization",
+              "name": "FarmTrack BioSciences",
+              "url": "http://farmtrack.co.ke/"
+            }
+          })}
+        </script>
       </Helmet>
 <div className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">

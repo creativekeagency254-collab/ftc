@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import FeaturedProducts from './FeaturedProducts';
@@ -6,7 +6,7 @@ import StatCounter from '../about/StatCounter';
 
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const slides = [
     'https://i.postimg.cc/Pq81k4df/assets-task-01jy3kehzxfqzbv4b4m84q4d93-1750320354-img-1.webp',
     'https://i.postimg.cc/vTYVF9JK/assets-task-01jwzj0qn7f0er8tsbd4nwnfw5-1749110839-img-2-1.webp',
@@ -16,7 +16,7 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 5500);
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -31,63 +31,62 @@ const Hero: React.FC = () => {
     {
       title: 'Products',
       description: 'Explore our innovative agricultural solutions',
-      path: '/products'
+      path: '/products',
     },
     {
       title: 'Gallery',
       description: 'See our products in action across farms',
-      path: '/gallery'
+      path: '/gallery',
     },
     {
       title: 'Performance',
       description: 'View detailed metrics and success stories',
-      path: '/performance'
+      path: '/performance',
     },
     {
       title: 'FAQ',
       description: 'Find answers to common questions',
-      path: '/faq'
-    }
+      path: '/faq',
+    },
   ];
 
   return (
     <>
-      <section className="relative h-[85vh] overflow-hidden">
-        {/* Background Slider */}
+      <section className="relative h-[85vh] min-h-[580px] overflow-hidden bg-slate-900 md:h-[95vh]">
         <div className="absolute inset-0">
           {slides.map((slide, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-1000 ${
                 index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <img
                 src={slide}
                 alt={`Farming slide ${index + 1}`}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
+                loading={index === 0 ? 'eager' : 'lazy'}
               />
-              <div className="absolute inset-0 bg-black/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/35" />
             </div>
           ))}
         </div>
 
-        {/* Content */}
-        <div className="relative h-full flex items-center">
+        <div className="relative flex h-full items-center pt-12">
           <div className="container mx-auto px-4">
-            <div className="text-center text-white max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 title-animation">
-                Revolutionizing <br />
-                <span className="text-primary">modern farming</span>
+            <div className="max-w-3xl text-white">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">FarmTrack BioSciences</p>
+              <h1 className="mb-5 text-3xl font-bold leading-tight md:text-5xl">
+                Revolutionizing modern farming with practical, organic solutions
               </h1>
-              <p className="text-lg mb-8">
-               Innovative crop protection and nutrition solutions for optimised agri-productivity.  
+              <p className="mb-8 max-w-2xl text-base text-slate-100 md:text-lg">
+                Innovative crop protection and nutrition solutions for optimized agri-productivity.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link to="/products" onClick={() => window.scrollTo(0, 0)} className="btn btn-primary btn-enhanced">
+              <div className="flex flex-wrap gap-3">
+                <Link to="/products" onClick={() => window.scrollTo(0, 0)} className="btn btn-primary">
                   Explore Organic Biopesticides
                 </Link>
-                <button onClick={scrollToFeatures} className="btn btn-outline text-white border-white hover:bg-white/20 btn-enhanced">
+                <button type="button" onClick={scrollToFeatures} className="btn border border-white text-white hover:bg-white/10">
                   Learn More
                 </button>
               </div>
@@ -95,40 +94,41 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-          <ChevronDown size={36} />
-        </div>
+        <button
+          type="button"
+          onClick={scrollToFeatures}
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-white/40 p-2 text-white transition-colors hover:bg-white/10"
+          aria-label="Scroll to next section"
+        >
+          <ChevronDown size={22} />
+        </button>
       </section>
 
-      {/* Quick Links Section */}
-      <section className="bg-secondary py-16">
+      <section className="bg-white py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {quickLinks.map((link, index) => (
               <Link
                 key={index}
                 to={link.path}
                 onClick={() => window.scrollTo(0, 0)}
-                className="bg-white/90 backdrop-blur-sm p-4 rounded-xl transition-all duration-300 hover:bg-primary hover:text-white group"
+                className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:bg-slate-100"
               >
-                <h3 className="text-primary font-bold mb-1 group-hover:text-white">{link.title}</h3>
-                <p className="text-sm text-gray-600 group-hover:text-white/90">{link.description}</p>
+                <h3 className="mb-1 text-lg font-bold text-slate-800">{link.title}</h3>
+                <p className="text-sm text-slate-600">{link.description}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products Section - Right after Quick Links */}
       <div data-section="products">
         <FeaturedProducts />
       </div>
 
-      {/* Stats Section - Added below Featured Products */}
-      <section className="py-16 bg-black text-white">
+      <section className="bg-slate-900 py-14 text-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="text-center">
               <StatCounter value={200} label="Thousand Farmers Using Our Biopesticides" suffix="k+" delay={0} />
             </div>

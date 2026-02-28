@@ -21,16 +21,16 @@ const GalleryPage: React.FC = () => {
         <meta property="og:title" content="Agricultural Success Gallery | FarmTrack BioSciences" />
         <meta property="og:description" content="See our biopesticides and organic solutions in action across farms throughout Kenya and East Africa. Visual proof of agricultural transformation." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://farmtrack.com/gallery" />
+        <meta property="og:url" content="http://farmtrack.co.ke/gallery" />
         <meta property="og:image" content="/og-image.jpg" />
-        <link rel="canonical" href="https://farmtrack.com/gallery" />
+        <link rel="canonical" href="http://farmtrack.co.ke/gallery" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ImageGallery",
             "name": "FarmTrack BioSciences Agricultural Success Gallery",
             "description": "Visual documentation of agricultural transformations and product effectiveness across East Africa",
-            "url": "https://farmtrack.com/gallery",
+            "url": "http://farmtrack.co.ke/gallery",
             "image": galleryImages.map(image => ({
               "@type": "ImageObject",
               "name": image.title,

@@ -211,7 +211,7 @@ const PWAInstallPrompt: React.FC = () => {
           {/* Additional info */}
           <div className="mt-3 pt-3 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              Free • No app store required • Works on all devices
+              Free &bull; No app store required &bull; Works on all devices
             </p>
           </div>
         </div>
