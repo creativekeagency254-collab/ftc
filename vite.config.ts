@@ -318,6 +318,12 @@ const paystackInvoiceDevPlugin = ({
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const paystackSecretKey = env.PAYSTACK_SECRET_KEY || env.VITE_PAYSTACK_SECRET_KEY || '';
+  const supabaseWriteKey =
+    env.SUPABASE_SERVICE_ROLE_KEY ||
+    env.SUPABASE_ANON_KEY ||
+    env.VITE_SUPABASE_ANON_KEY ||
+    env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    '';
 
   return {
     plugins: [
@@ -325,7 +331,7 @@ export default defineConfig(({ mode }) => {
       paystackInvoiceDevPlugin({
         paystackSecretKey,
         supabaseUrl: env.SUPABASE_URL || env.VITE_SUPABASE_URL,
-        supabaseServiceRoleKey: env.SUPABASE_SERVICE_ROLE_KEY,
+        supabaseServiceRoleKey: supabaseWriteKey,
       }),
     ],
     base: './',

@@ -110,6 +110,12 @@ exports.handler = async (event) => {
   }
 
   const paystackSecretKey = process.env.PAYSTACK_SECRET_KEY || process.env.VITE_PAYSTACK_SECRET_KEY;
+  const supabaseWriteKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    '';
   if (!paystackSecretKey) {
     return jsonResponse(500, { status: false, message: 'PAYSTACK_SECRET_KEY is not configured.' });
   }
@@ -167,7 +173,7 @@ exports.handler = async (event) => {
         status: 'invoice_sent',
       },
       supabaseUrl: process.env.SUPABASE_URL,
-      supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+      supabaseServiceRoleKey: supabaseWriteKey,
     });
 
     return jsonResponse(200, {
