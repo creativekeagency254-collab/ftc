@@ -119,13 +119,6 @@ const Header: React.FC = () => {
               <Download size={15} />
               Catalog
             </button>
-            <a
-              href="tel:+254711495522"
-              className="header-cta-call inline-flex items-center rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-primary/90"
-            >
-              <PhoneCall size={15} className="mr-1.5" />
-              Call Now
-            </a>
           </div>
 
           <button
