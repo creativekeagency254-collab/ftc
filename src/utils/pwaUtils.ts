@@ -122,8 +122,8 @@ export const showNotification = (title: string, options?: NotificationOptions): 
   }
 
   const defaultOptions: NotificationOptions = {
-    icon: '/icon-192.png',
-    badge: '/icon-192.png',
+    icon: '/favicon.svg',
+    badge: '/favicon.svg',
     vibrate: [100, 50, 100],
     ...options
   };
