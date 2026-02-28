@@ -63,8 +63,16 @@ interface PaystackInvoiceRequestParams {
   amountKsh: number;
 }
 
-export const PAYSTACK_FIXED_AMOUNT_KSH = 200;
-export const PAYSTACK_INVOICE_ENDPOINT = import.meta.env.VITE_PAYSTACK_INVOICE_ENDPOINT || '';
+interface PaystackInvoiceResponse {
+  status: boolean;
+  message: string;
+  requestCode?: string;
+  customerEmailSent?: boolean;
+  dealerNotified?: boolean;
+}
+
+export const PAYSTACK_FIXED_AMOUNT_KSH = 2;
+export const PAYSTACK_INVOICE_ENDPOINT = import.meta.env.VITE_PAYSTACK_INVOICE_ENDPOINT || '/.netlify/functions/paystack-invoice';
 
 export const startPaystackCheckout = async ({
   email,
@@ -114,7 +122,7 @@ export const requestPaystackInvoice = async ({
   customerPhone,
   productName,
   amountKsh,
-}: PaystackInvoiceRequestParams): Promise<void> => {
+}: PaystackInvoiceRequestParams): Promise<PaystackInvoiceResponse> => {
   if (!PAYSTACK_INVOICE_ENDPOINT) {
     throw new Error('Paystack invoice endpoint is not configured.');
   }
@@ -133,8 +141,31 @@ export const requestPaystackInvoice = async ({
     }),
   });
 
+  const contentType = response.headers.get('content-type') || '';
+  const isJson = contentType.includes('application/json');
+
   if (!response.ok) {
-    const message = await response.text();
+    if (isJson) {
+      const payload = (await response.json().catch(() => null)) as PaystackInvoiceResponse | null;
+      throw new Error(payload?.message || 'Failed to request invoice.');
+    }
+
+    const message = await response.text().catch(() => '');
     throw new Error(message || 'Failed to request invoice.');
   }
+
+  if (isJson) {
+    const payload = (await response.json().catch(() => null)) as PaystackInvoiceResponse | null;
+    if (payload && payload.status === false) {
+      throw new Error(payload.message || 'Failed to request invoice.');
+    }
+    if (payload) {
+      return payload;
+    }
+  }
+
+  return {
+    status: true,
+    message: 'Invoice sent successfully.',
+  };
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download, PhoneCall } from 'lucide-react';
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -57,15 +57,13 @@ const Header: React.FC = () => {
       style={{ top: '16px', padding: '0 14px' }}
     >
       <div
-        className={`header-glass-shell mx-auto max-w-7xl rounded-2xl border shadow-2xl ${
-          isHomePage ? 'border-white/35' : 'border-white/55'
-        }`}
+        className={`${isHomePage ? 'header-glass-shell' : 'header-solid-shell'} mx-auto max-w-7xl rounded-2xl border-2 border-black shadow-2xl`}
         style={{
           background: isHomePage
             ? 'linear-gradient(130deg, rgba(2,6,23,0.38) 0%, rgba(15,23,42,0.30) 50%, rgba(4,47,46,0.32) 100%)'
-            : 'linear-gradient(130deg, rgba(255,255,255,0.70) 0%, rgba(248,250,252,0.72) 45%, rgba(236,253,245,0.72) 100%)',
-          backdropFilter: 'blur(22px)',
-          WebkitBackdropFilter: 'blur(22px)',
+            : 'linear-gradient(130deg, rgba(255,255,255,0.99) 0%, rgba(255,255,255,0.99) 100%)',
+          backdropFilter: isHomePage ? 'blur(22px)' : 'blur(3px)',
+          WebkitBackdropFilter: isHomePage ? 'blur(22px)' : 'blur(3px)',
           transform: 'translateZ(0)',
         }}
       >
@@ -112,16 +110,20 @@ const Header: React.FC = () => {
             <button
               type="button"
               onClick={handleCatalogDownload}
-              className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-2 text-sm font-semibold ${
+              className={`header-cta-catalog inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-semibold ${
                 isHomePage
-                  ? 'border-white/40 text-white hover:bg-white/10'
-                  : 'border-slate-300 text-slate-700 hover:bg-slate-100'
+                  ? 'border-white/50 text-white hover:bg-white/15'
+                  : 'border-emerald-200 text-slate-700 hover:bg-emerald-50'
               }`}
             >
               <Download size={15} />
               Catalog
             </button>
-            <a href="tel:+254711495522" className="rounded-md bg-primary px-3.5 py-2 text-sm font-semibold text-white shadow hover:bg-primary/90">
+            <a
+              href="tel:+254711495522"
+              className="header-cta-call inline-flex items-center rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-primary/90"
+            >
+              <PhoneCall size={15} className="mr-1.5" />
               Call Now
             </a>
           </div>
@@ -141,8 +143,8 @@ const Header: React.FC = () => {
 
       {mobileMenuOpen && (
         <div
-          className={`mx-auto mt-2 max-w-7xl rounded-2xl border p-3 shadow-xl backdrop-blur-xl lg:hidden ${
-            isHomePage ? 'border-white/40 bg-slate-900/85' : 'border-white/60 bg-white/95'
+          className={`mx-auto mt-2 max-w-7xl rounded-2xl border-2 border-black p-3 shadow-xl backdrop-blur-xl lg:hidden ${
+            isHomePage ? 'bg-slate-900/85' : 'bg-white/95'
           }`}
         >
           <div className="space-y-1">
@@ -170,13 +172,17 @@ const Header: React.FC = () => {
             <button
               type="button"
               onClick={handleCatalogDownload}
-              className={`rounded-md border px-3 py-2 text-sm font-semibold ${
-                isHomePage ? 'border-white/40 text-white' : 'border-slate-300 text-slate-700'
+              className={`header-cta-catalog rounded-full border px-3 py-2 text-sm font-semibold ${
+                isHomePage ? 'border-white/40 text-white hover:bg-white/10' : 'border-emerald-200 text-slate-700 hover:bg-emerald-50'
               }`}
             >
               Catalog
             </button>
-            <a href="tel:+254711495522" className="rounded-md bg-primary px-3 py-2 text-center text-sm font-semibold text-white">
+            <a
+              href="tel:+254711495522"
+              className="header-cta-call inline-flex items-center justify-center rounded-full bg-primary px-3 py-2 text-center text-sm font-semibold text-white"
+            >
+              <PhoneCall size={14} className="mr-1.5" />
               Call
             </a>
           </div>

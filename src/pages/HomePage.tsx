@@ -164,11 +164,15 @@ const HomePage: React.FC = () => {
       </Helmet>
 
       <Hero />
-      <div data-section="features">
+      <div data-section="features" className="home-soft-section">
         <FeatureTiles />
       </div>
-      <HomeFaqPreview />
-      <Reviews />
+      <div className="home-soft-section">
+        <HomeFaqPreview />
+      </div>
+      <div className="home-soft-section">
+        <Reviews />
+      </div>
     </>
   );
 };

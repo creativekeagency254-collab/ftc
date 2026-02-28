@@ -167,6 +167,25 @@ const MapPage: React.FC = () => {
           </div>
         </div>
 
+        <div className="mt-16">
+          <SectionTitle
+            title="Find Us on Google Maps"
+            subtitle="Exact location of FarmTrack Consulting Limited in Nairobi"
+          />
+          <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl border-[3px] border-black bg-white shadow-lg">
+            <iframe
+              src="https://www.google.com/maps?q=Farmtrack+Consulting+Limited,+Nairobi&output=embed"
+              width="100%"
+              height="420"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="FarmTrack Consulting Limited Google Map"
+            />
+          </div>
+        </div>
+
         {/* Production Offices and Manufacturing Building Section */}
         <div className="mt-16">
           <SectionTitle 

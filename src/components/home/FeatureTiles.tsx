@@ -84,9 +84,9 @@ const FeatureTiles: React.FC = () => {
       subheading2: 'Premium Quality Certification',
       description:
         'FarmTrack BioSciences ensures all farm produce meets and exceeds international and local market standards through our natural, residue-free bioscience solutions.',
-      image1: 'https://images.pexels.com/photos/2280549/pexels-photo-2280549.jpeg?auto=compress&cs=tinysrgb&w=1200',
+      image1: 'https://i.postimg.cc/4d37P65G/20250901-1311-Avocado-Harvest-Smiles-remix-01k42c0f7pfshrrn0ey5hre4an-1.png',
       caption1: 'International Market Compliance Standards',
-      backgroundImage: 'https://images.pexels.com/photos/8853502/pexels-photo-8853502.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      backgroundImage: 'https://i.postimg.cc/4d37P65G/20250901-1311-Avocado-Harvest-Smiles-remix-01k42c0f7pfshrrn0ey5hre4an-1.png',
       expandedContent:
         'FarmTrack BioSciences guarantees that all farm produce meets and exceeds the most stringent international and local market standards through our comprehensive natural, residue-free bioscience solutions.',
       benefits: [

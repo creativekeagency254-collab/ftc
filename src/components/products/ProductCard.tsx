@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
     <article
       role="button"
       tabIndex={0}
-      className="group relative cursor-pointer rounded-[28px] border border-slate-200/90 bg-[#f3f4f6] p-3 shadow-[0_14px_28px_rgba(2,6,23,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_40px_rgba(2,6,23,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+      className="group relative cursor-pointer rounded-[28px] border-[3px] border-black bg-[#f3f4f6] p-3 shadow-[0_14px_28px_rgba(2,6,23,0.10)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_40px_rgba(2,6,23,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
       onClick={openProduct}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -37,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
         }
       }}
     >
-      <div className="rounded-[22px] border border-white bg-white p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
+      <div className="rounded-[22px] border-[2px] border-black/90 bg-white p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
         <div className="mb-3 flex items-center justify-between">
           <p className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-600">
             {categoryLabel}

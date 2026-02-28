@@ -12,6 +12,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   ResponsiveContainer,
   Cell,
 } from 'recharts';
@@ -31,17 +32,22 @@ const PerformanceChart: React.FC<ChartProps> = ({
   description,
   colors = ['#2f855a', '#276749', '#4a5568', '#1a202c'],
 }) => {
+  const axisStyle = { fontSize: 12, fill: '#475569' };
+  const numericValues = data.map((item) => item.value);
+  const averageValue = numericValues.length ? numericValues.reduce((sum, current) => sum + current, 0) / numericValues.length : 0;
+  const peakPoint = data.length ? data.reduce((peak, current) => (current.value > peak.value ? current : peak), data[0]) : null;
+
   const tooltipStyles = {
     contentStyle: {
       borderRadius: '10px',
       border: '1px solid #e2e8f0',
       boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
       fontSize: '12px',
+      backgroundColor: '#ffffff',
     },
     cursor: { fill: 'rgba(148, 163, 184, 0.12)' },
+    formatter: (value: number | string) => [Number(value).toLocaleString(), 'Value'],
   };
-
-  const axisStyle = { fontSize: 12, fill: '#475569' };
 
   const renderChart = () => {
     switch (type) {
@@ -60,6 +66,7 @@ const PerformanceChart: React.FC<ChartProps> = ({
                 animationDuration={1400}
                 animationEasing="ease-out"
               />
+              <Legend wrapperStyle={{ fontSize: '12px' }} />
             </BarChart>
           </ResponsiveContainer>
         );
@@ -80,6 +87,7 @@ const PerformanceChart: React.FC<ChartProps> = ({
                 animationDuration={1500}
                 animationEasing="ease-out"
               />
+              <Legend wrapperStyle={{ fontSize: '12px' }} />
             </LineChart>
           </ResponsiveContainer>
         );
@@ -103,6 +111,7 @@ const PerformanceChart: React.FC<ChartProps> = ({
                 ))}
               </Pie>
               <Tooltip {...tooltipStyles} />
+              <Legend wrapperStyle={{ fontSize: '12px' }} />
             </PieChart>
           </ResponsiveContainer>
         );
@@ -124,6 +133,7 @@ const PerformanceChart: React.FC<ChartProps> = ({
                 animationDuration={1500}
                 animationEasing="ease-out"
               />
+              <Legend wrapperStyle={{ fontSize: '12px' }} />
             </AreaChart>
           </ResponsiveContainer>
         );
@@ -144,6 +154,17 @@ const PerformanceChart: React.FC<ChartProps> = ({
         </span>
       </div>
       {renderChart()}
+      <div className="mt-3 grid grid-cols-1 gap-2 text-xs text-slate-600 sm:grid-cols-3">
+        <p className="rounded-md bg-slate-50 px-2.5 py-1.5">
+          <span className="font-semibold text-slate-700">Data Points:</span> {data.length}
+        </p>
+        <p className="rounded-md bg-slate-50 px-2.5 py-1.5">
+          <span className="font-semibold text-slate-700">Average:</span> {Math.round(averageValue).toLocaleString()}
+        </p>
+        <p className="rounded-md bg-slate-50 px-2.5 py-1.5">
+          <span className="font-semibold text-slate-700">Peak:</span> {peakPoint ? `${peakPoint.name} (${peakPoint.value.toLocaleString()})` : 'N/A'}
+        </p>
+      </div>
     </article>
   );
 };

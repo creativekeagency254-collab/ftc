@@ -52,41 +52,47 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <section className="relative h-[85vh] min-h-[580px] overflow-hidden bg-slate-900 md:h-[95vh]">
+      <section className="home-hero-shell relative h-[85vh] min-h-[580px] overflow-hidden bg-slate-900 md:h-[95vh]">
         <div className="absolute inset-0">
           {slides.map((slide, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
+              className={`absolute inset-0 transition-opacity duration-[1600ms] ease-linear ${
                 index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <img
                 src={slide}
                 alt={`Farming slide ${index + 1}`}
-                className="h-full w-full object-cover"
+                className={`h-full w-full object-cover transition-transform duration-[3200ms] ease-out ${
+                  index === currentSlide ? 'scale-105' : 'scale-100'
+                }`}
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/35" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/40" />
             </div>
           ))}
         </div>
 
         <div className="relative flex h-full items-center pt-12">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl text-white">
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">FarmTrack BioSciences</p>
+            <div className="mx-auto max-w-4xl text-center text-white">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-primary">FARMTRACK BIOSCIENCES</p>
               <h1 className="mb-5 text-3xl font-bold leading-tight md:text-5xl">
                 Revolutionizing modern farming with practical, organic solutions
               </h1>
-              <p className="mb-8 max-w-2xl text-base text-slate-100 md:text-lg">
+              <p className="mx-auto mb-8 max-w-2xl text-base text-slate-100 md:text-lg">
                 Innovative crop protection and nutrition solutions for optimized agri-productivity.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap justify-center gap-3">
                 <Link to="/products" onClick={() => window.scrollTo(0, 0)} className="btn btn-primary">
                   Explore Organic Biopesticides
                 </Link>
-                <button type="button" onClick={scrollToFeatures} className="btn border border-white text-white hover:bg-white/10">
+                <button
+                  type="button"
+                  onClick={scrollToFeatures}
+                  className="btn rounded-md border border-white/70 bg-white/5 text-white hover:bg-white/15"
+                >
                   Learn More
                 </button>
               </div>
@@ -104,7 +110,7 @@ const Hero: React.FC = () => {
         </button>
       </section>
 
-      <section className="bg-white py-12">
+      <section className="home-soft-section bg-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {quickLinks.map((link, index) => (
@@ -112,7 +118,8 @@ const Hero: React.FC = () => {
                 key={index}
                 to={link.path}
                 onClick={() => window.scrollTo(0, 0)}
-                className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:bg-slate-100"
+                className="home-loop-card rounded-xl border border-emerald-100 bg-slate-50 p-5 transition-all hover:border-emerald-300 hover:bg-emerald-50/60"
+                style={{ animationDelay: `${index * 0.35}s` }}
               >
                 <h3 className="mb-1 text-lg font-bold text-slate-800">{link.title}</h3>
                 <p className="text-sm text-slate-600">{link.description}</p>
@@ -126,7 +133,7 @@ const Hero: React.FC = () => {
         <FeaturedProducts />
       </div>
 
-      <section className="bg-slate-900 py-14 text-white">
+      <section className="home-soft-section home-soft-section-dark bg-slate-900 py-14 text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="text-center">
