@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { X, CheckCircle, PhoneCall, MessageCircle, Loader2 } from 'lucide-react';
 import { Product } from './ProductCard';
 import { startPaystackCheckout, requestPaystackInvoice, PAYSTACK_FIXED_AMOUNT_KSH } from '../../utils/paystack';
-import { supabase } from '../../lib/supabase';
 
 interface ProductOverlayProps {
   product: Product | null;
@@ -105,7 +104,7 @@ const ProductOverlay: React.FC<ProductOverlayProps> = ({ product, onClose }) => 
     setPaymentMessage(null);
 
     try {
-      await requestPaystackInvoice({
+      const invoiceResponse = await requestPaystackInvoice({
         email: paymentForm.email.trim(),
         customerName: paymentForm.customerName.trim(),
         customerPhone: paymentForm.phone.trim(),
@@ -113,22 +112,10 @@ const ProductOverlay: React.FC<ProductOverlayProps> = ({ product, onClose }) => 
         amountKsh: PAYSTACK_FIXED_AMOUNT_KSH,
       });
 
-      const { error } = await supabase.from('invoice_requests').insert([
-        {
-          customer_name: paymentForm.customerName.trim(),
-          email: paymentForm.email.trim(),
-          phone: paymentForm.phone.trim(),
-          product_name: product.name,
-          amount_ksh: PAYSTACK_FIXED_AMOUNT_KSH,
-          channel: 'paystack',
-          status: 'invoice_sent',
-        },
-      ]);
-
-      if (error) {
-        setPaymentMessage('Paystack invoice sent directly to your email. Dealer notification is pending.');
-      } else {
+      if (invoiceResponse.dealerNotified) {
         setPaymentMessage('Paystack invoice sent directly to your email. Dealer has also been notified.');
+      } else {
+        setPaymentMessage('Paystack invoice sent directly to your email. Dealer notification is pending.');
       }
     } catch (error) {
       setPaymentMessage(error instanceof Error ? error.message : 'Failed to send Paystack invoice. Please try again.');
@@ -183,7 +170,7 @@ const ProductOverlay: React.FC<ProductOverlayProps> = ({ product, onClose }) => 
                     Success - Make the Call
                   </a>
                   <a
-                    href={`https://wa.me/254711495522?text=${encodeURIComponent(`Payment successful for ${product.name}. Name: ${paymentForm.customerName}.`)}`}
+                    href={`https://wa.me/254711495522?text=${encodeURIComponent(`Hello FarmTrack Team, payment was successful for ${product.name}. My name is ${paymentForm.customerName}. Please assist with next delivery steps.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-black"

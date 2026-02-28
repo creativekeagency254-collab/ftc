@@ -124,6 +124,47 @@ const paystackInvoiceDevPlugin = ({
       return fallbackResponse.ok || fallbackResponse.status === 409;
     };
 
+    const subscribeNewsletterInSupabase = async (email: string, source: string): Promise<boolean> => {
+      if (!supabaseUrl || !supabaseServiceRoleKey) return false;
+
+      const newsletterResponse = await fetch(`${supabaseUrl}/rest/v1/email_subscriptions?on_conflict=email`, {
+        method: 'POST',
+        headers: {
+          apikey: supabaseServiceRoleKey,
+          Authorization: `Bearer ${supabaseServiceRoleKey}`,
+          'Content-Type': 'application/json',
+          Prefer: 'resolution=ignore-duplicates,return=minimal',
+        },
+        body: JSON.stringify([{ email, source }]),
+      });
+
+      if (newsletterResponse.ok || newsletterResponse.status === 409) {
+        return true;
+      }
+
+      const fallbackResponse = await fetch(`${supabaseUrl}/rest/v1/invoice_requests`, {
+        method: 'POST',
+        headers: {
+          apikey: supabaseServiceRoleKey,
+          Authorization: `Bearer ${supabaseServiceRoleKey}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify([
+          {
+            customer_name: 'Newsletter Subscriber',
+            email,
+            phone: 'N/A',
+            product_name: 'Newsletter Signup',
+            channel: 'newsletter',
+            status: 'email_captured',
+          },
+        ]),
+      });
+
+      return fallbackResponse.ok;
+    };
+
     const invoiceHandler = async (req: any, res: any) => {
       if (req.method === 'OPTIONS') {
         jsonResponse(res, 200, { ok: true });
@@ -219,6 +260,56 @@ const paystackInvoiceDevPlugin = ({
 
     for (const endpointPath of ['/api/paystack-invoice', '/.netlify/functions/paystack-invoice']) {
       server.middlewares.use(endpointPath, invoiceHandler);
+    }
+
+    const newsletterHandler = async (req: any, res: any) => {
+      if (req.method === 'OPTIONS') {
+        jsonResponse(res, 200, { ok: true });
+        return;
+      }
+
+      if (req.method !== 'POST') {
+        jsonResponse(res, 405, { status: false, message: 'Method not allowed' });
+        return;
+      }
+
+      let body: Record<string, unknown>;
+      try {
+        body = await readJsonBody(req);
+      } catch (error) {
+        jsonResponse(res, 400, {
+          status: false,
+          message: error instanceof Error ? error.message : 'Invalid JSON payload.',
+        });
+        return;
+      }
+
+      const email = String(body.email || '').trim().toLowerCase();
+      const source = String(body.source || 'footer').trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!email || !emailRegex.test(email)) {
+        jsonResponse(res, 400, { status: false, message: 'Please provide a valid email address.' });
+        return;
+      }
+
+      const saved = await subscribeNewsletterInSupabase(email, source);
+      if (!saved) {
+        jsonResponse(res, 500, {
+          status: false,
+          message: 'Could not store email in Supabase. Confirm required tables exist.',
+        });
+        return;
+      }
+
+      jsonResponse(res, 200, {
+        status: true,
+        message: 'Subscription received successfully.',
+      });
+    };
+
+    for (const endpointPath of ['/api/newsletter-subscribe', '/.netlify/functions/newsletter-subscribe']) {
+      server.middlewares.use(endpointPath, newsletterHandler);
     }
   },
 });

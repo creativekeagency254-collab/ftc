@@ -1,5 +1,5 @@
-const CACHE_NAME = "farmtrack-v1";
-const APP_SHELL = ["/", "/manifest.json", "/favicon.svg"];
+const CACHE_NAME = "farmtrack-v2";
+const APP_SHELL = ["/", "/manifest.json", "/favicon.svg", "/icon-192.png", "/icon-512.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

@@ -151,10 +151,10 @@ const AboutUsPage: React.FC = () => {
                     </a>
                     <span className="text-gray-500">or</span>
                     <a 
-                      href="tel:+254735495522" 
+                      href="tel:+254726819687" 
                       className="block text-primary font-medium hover:underline transition-colors"
                     >
-                      +254 735 495522
+                      +254 726 819687
                     </a>
                   </div>
                   <p className="text-sm text-gray-500 mt-2">Monday-Friday 8AM-5PM</p>

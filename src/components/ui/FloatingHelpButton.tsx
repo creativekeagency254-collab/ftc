@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 import { HelpCircle, X, Phone, MessageCircle, Package, Truck, Wrench } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const FloatingHelpButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const whatsappGreeting =
+    'Hello FarmTrack Team, I need support with ordering, shipping, and product guidance. Please assist me.';
+  const whatsappSupportUrl = `https://wa.me/254711495522?text=${encodeURIComponent(whatsappGreeting)}`;
 
   const options = [
     {
       label: 'Product Information',
       icon: Package,
-      action: () => window.open('tel:+254727941659', '_self'),
+      action: () => window.open('tel:+254726819687', '_self'),
     },
     {
       label: 'Ordering & Shipping',
       icon: Truck,
-      path: '/faq',
+      action: () => window.open('tel:+254711495522', '_self'),
     },
     {
       label: 'Technical Support',
       icon: Wrench,
-      action: () => window.open('https://wa.me/254711495522', '_blank'),
+      action: () => window.open(whatsappSupportUrl, '_blank'),
     },
     {
       label: 'Contact Sales Team',
       icon: Phone,
-      action: () => window.open('tel:+254722863252', '_self'),
+      action: () => window.open('tel:+254726819687', '_self'),
     },
   ];
 
@@ -63,42 +65,27 @@ const FloatingHelpButton: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              {options.map((option, index) =>
-                option.path ? (
-                  <Link
-                    key={index}
-                    to={option.path}
-                    onClick={() => setIsOpen(false)}
-                    className="flex w-full items-center justify-between rounded-lg border border-slate-200 px-3 py-3 text-left text-sm font-medium text-slate-700 hover:bg-slate-50"
-                  >
-                    <span className="flex items-center gap-2">
-                      <option.icon size={16} className="text-primary" />
-                      {option.label}
-                    </span>
-                    <span className="text-slate-400">-&gt;</span>
-                  </Link>
-                ) : (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => {
-                      option.action?.();
-                      setIsOpen(false);
-                    }}
-                    className="flex w-full items-center justify-between rounded-lg border border-slate-200 px-3 py-3 text-left text-sm font-medium text-slate-700 hover:bg-slate-50"
-                  >
-                    <span className="flex items-center gap-2">
-                      <option.icon size={16} className="text-primary" />
-                      {option.label}
-                    </span>
-                    <span className="text-slate-400">-&gt;</span>
-                  </button>
-                )
-              )}
+              {options.map((option, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => {
+                    option.action?.();
+                    setIsOpen(false);
+                  }}
+                  className="flex w-full items-center justify-between rounded-lg border border-slate-200 px-3 py-3 text-left text-sm font-medium text-slate-700 hover:bg-slate-50"
+                >
+                  <span className="flex items-center gap-2">
+                    <option.icon size={16} className="text-primary" />
+                    {option.label}
+                  </span>
+                  <span className="text-slate-400">-&gt;</span>
+                </button>
+              ))}
             </div>
 
             <a
-              href="https://wa.me/254711495522"
+              href={whatsappSupportUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800"

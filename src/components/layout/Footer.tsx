@@ -4,6 +4,10 @@ import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, D
 import EmailSubscription from '../ui/EmailSubscription';
 
 const Footer: React.FC = () => {
+  const whatsappGreeting =
+    'Hello FarmTrack Team, I would like support with products, ordering, and shipping.';
+  const whatsappSupportLink = `https://wa.me/254711495522?text=${encodeURIComponent(whatsappGreeting)}`;
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -23,7 +27,7 @@ const Footer: React.FC = () => {
   const socialLinks = [
     { icon: Facebook, color: '#1877F2', href: 'https://web.facebook.com/p/Farmtrack-Consulting-LTD-100063821324618/?_rdc=1&_rdr#', label: 'Facebook' },
     { icon: Twitter, color: '#1DA1F2', href: 'https://web.facebook.com/p/Farmtrack-Consulting-LTD-100063821324618/?_rdc=1&_rdr#', label: 'Twitter' },
-    { icon: Instagram, color: '#E4405F', href: 'https://api.whatsapp.com/send?phone=%2B254711495522&context=Afd3oa8qaOwDl7c-Fn7v4GNY4HUiWx-Q1qifjr8pl29tEiYOSLsLPeavn3MmC7f4H5hmB74BZUv1-_NVpuegPfTzqBZuRB4QtWPVZTJJfGRrn3bpJlRNQaP66AgARxzvnb_f6iCbPPurtiDwdUGgYr2iGg&source=FB_Page&app=facebook&entry_point=page_cta', label: 'whatsapp us' },
+    { icon: Instagram, color: '#E4405F', href: whatsappSupportLink, label: 'whatsapp us' },
     { icon: Linkedin, color: '#0A66C2', href: '#', label: 'LinkedIn' },
     { icon: Youtube, color: '#FF0000', href: '#', label: 'YouTube' },
   ];
@@ -141,7 +145,13 @@ const Footer: React.FC = () => {
                 <li className="flex items-center space-x-3">
                   <Phone className="shrink-0 text-primary" size={18} />
                   <a href="tel:+254711495522" className="text-gray-700 transition hover:text-primary">
-                    +254 711 495522
+                    Support & Ordering: +254 711 495522
+                  </a>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <Phone className="shrink-0 text-primary" size={18} />
+                  <a href="tel:+254726819687" className="text-gray-700 transition hover:text-primary">
+                    Sales: +254 726 819687
                   </a>
                 </li>
                 <li className="flex items-center space-x-3">

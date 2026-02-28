@@ -93,9 +93,6 @@ const FeaturedProducts: React.FC = () => {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
-                  <div className="absolute left-3 top-3 rounded-full bg-white/85 px-2 py-1 text-xs font-semibold text-slate-700">
-                    Featured
-                  </div>
                   <h3 className="absolute bottom-3 left-3 right-3 text-lg font-bold text-white drop-shadow">
                     {product.name}
                   </h3>

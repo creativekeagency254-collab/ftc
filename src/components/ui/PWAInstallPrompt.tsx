@@ -150,9 +150,12 @@ const PWAInstallPrompt: React.FC = () => {
                     }}
                   ></div>
                   <img
-                    src="https://images.pexels.com/photos/32311431/pexels-photo-32311431.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    src="/icon-192.png"
                     alt="FarmTrack BioSciences app icon"
                     className="w-6 h-6 object-contain relative z-10 filter drop-shadow-sm"
+                    onError={(e) => {
+                      e.currentTarget.src = '/favicon.svg';
+                    }}
                   />
                 </div>
                 <div>

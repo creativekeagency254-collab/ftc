@@ -92,7 +92,7 @@ export const faqItems: FAQItem[] = [
   {
     id: 'ordering-2',
     question: 'Do you offer discounts for bulk orders?',
-    answer: 'Yes, we provide tiered pricing based on order volume. Agricultural cooperatives and registered farmer groups may qualify for additional program discounts. Please contact our sales department or your local representative for a detailed quote on bulk orders.',
+    answer: 'Yes, we provide tiered pricing based on order volume. Agricultural cooperatives and registered farmer groups may qualify for additional program discounts. Please contact our sales department at +254 726 819687 for a detailed quote on bulk orders.',
     category: 'ordering'
   },
   {
@@ -104,7 +104,7 @@ export const faqItems: FAQItem[] = [
   {
     id: 'ordering-4',
     question: 'How long does delivery take?',
-    answer: 'Standard delivery procedures are same day for orders within nairobi and its environs , and one business day for rural areas across Kenya. For other  African countries, delivery typically takes 7-14 business days . Express delivery options are available for an additional fee. During peak agricultural seasons, please allow extra time for delivery. You can track your order status through our website or by contacting customer service.',
+    answer: 'Standard delivery procedures are same day for orders within nairobi and its environs , and one business day for rural areas across Kenya. For other  African countries, delivery typically takes 7-14 business days . Express delivery options are available for an additional fee. During peak agricultural seasons, please allow extra time for delivery. You can track your order status through our website or by contacting customer service at +254 711 495522.',
     category: 'ordering'
   },
   
@@ -116,7 +116,7 @@ export const faqItems: FAQItem[] = [
   {
     id: 'support-1',
     question: 'Do you provide technical support for product application?',
-    answer: 'Yes, we offer comprehensive technical support through multiple channels. Our team of agricultural specialists is available via phone and email Monday t0 Friday, 8:00 AM to 5:00 PM EAT. For larger operations, we can arrange on-site technical visits for product demonstrations and application training. We also provide detailed application guides, instructional videos, and regular farmer workshops throughout the growing season.',
+    answer: 'Yes, we offer comprehensive technical support through multiple channels. Our team of agricultural specialists is available via phone and email Monday t0 Friday, 8:00 AM to 5:00 PM EAT. For larger operations, we can arrange on-site technical visits for product demonstrations and application training. We also provide detailed application guides, instructional videos, and regular farmer workshops throughout the growing season. Call support at +254 711 495522.',
     category: 'support'
   },
   {

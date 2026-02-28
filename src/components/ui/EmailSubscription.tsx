@@ -2,11 +2,61 @@ import React, { useState } from 'react';
 import { Mail, CheckCircle, Loader2 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
+const configuredNewsletterEndpoint = String(import.meta.env.VITE_NEWSLETTER_ENDPOINT || '').trim();
+const NEWSLETTER_ENDPOINTS = Array.from(
+  new Set([configuredNewsletterEndpoint, '/api/newsletter-subscribe', '/.netlify/functions/newsletter-subscribe'].filter(Boolean))
+);
+
+interface NewsletterResponse {
+  status?: boolean;
+  message?: string;
+}
+
 const EmailSubscription: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const subscribeViaBackend = async (value: string): Promise<boolean> => {
+    let lastError: Error | null = null;
+
+    for (let index = 0; index < NEWSLETTER_ENDPOINTS.length; index += 1) {
+      const endpoint = NEWSLETTER_ENDPOINTS[index];
+      const hasNext = index < NEWSLETTER_ENDPOINTS.length - 1;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: value, source: 'footer' }),
+        });
+
+        if (response.status === 404 && hasNext) {
+          continue;
+        }
+
+        const payload = (await response.json().catch(() => ({}))) as NewsletterResponse;
+        if (!response.ok || payload.status === false) {
+          throw new Error(payload.message || 'Failed to subscribe.');
+        }
+
+        return true;
+      } catch (err) {
+        const endpointError = err instanceof Error ? err : new Error('Failed to subscribe.');
+        lastError = endpointError;
+        if (!hasNext) {
+          break;
+        }
+      }
+    }
+
+    if (lastError) {
+      throw lastError;
+    }
+
+    return false;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,9 +64,22 @@ const EmailSubscription: React.FC = () => {
     setError(null);
 
     try {
+      const trimmedEmail = email.trim();
+
+      try {
+        const backendCaptured = await subscribeViaBackend(trimmedEmail);
+        if (backendCaptured) {
+          setIsSubmitted(true);
+          setEmail('');
+          return;
+        }
+      } catch {
+        // Fall back to direct client insert if backend endpoint is unavailable.
+      }
+
       const { error: insertError } = await supabase
         .from('email_subscriptions')
-        .insert([{ email, source: 'footer' }]);
+        .insert([{ email: trimmedEmail, source: 'footer' }]);
 
       if (insertError) {
         if (insertError.code === '23505') { // Unique constraint violation
