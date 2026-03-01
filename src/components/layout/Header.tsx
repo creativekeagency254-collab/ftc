@@ -71,11 +71,11 @@ const Header: React.FC = () => {
           <Link to="/" className="flex min-w-0 items-center gap-2.5" onClick={() => window.scrollTo(0, 0)}>
             <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-slate-200 bg-white p-1">
               <img
-                src="https://images.pexels.com/photos/32311431/pexels-photo-32311431.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                src="/header-logo.png"
                 alt="FarmTrack BioSciences logo"
                 className="h-full w-full object-contain"
                 onError={(e) => {
-                  e.currentTarget.src = '/favicon.svg';
+                  e.currentTarget.src = '/icon-192.png';
                 }}
               />
             </div>

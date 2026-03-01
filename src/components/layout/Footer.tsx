@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
             <div className="space-y-4">
               <Link to="/" onClick={scrollToTop} className="flex items-center space-x-2 text-2xl font-bold text-primary">
                 <img
-                  src="https://images.pexels.com/photos/32311431/pexels-photo-32311431.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  src="/header-logo.png"
                   alt="FarmTrack BioSciences logo"
                   className="h-8 w-8 object-contain"
                 />

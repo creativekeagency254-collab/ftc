@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
                 "@id": "http://farmtrack.co.ke/#organization",
                 "name": "FarmTrack BioSciences",
                 "url": "http://farmtrack.co.ke/",
-                "logo": "http://farmtrack.co.ke/favicon.svg",
+                "logo": "http://farmtrack.co.ke/icon-192.png",
                 "description": "Leading provider of organic biopesticides, biological pest control solutions, and eco-friendly agricultural products in Kenya and East Africa.",
                 "contactPoint": {
                   "@type": "ContactPoint",
