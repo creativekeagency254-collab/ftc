@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, Download, PhoneCall } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -170,19 +170,12 @@ const Header: React.FC = () => {
             <button
               type="button"
               onClick={handleCatalogDownload}
-              className={`header-cta-catalog rounded-full border px-3 py-2 text-sm font-semibold ${
+              className={`header-cta-catalog col-span-2 rounded-full border px-3 py-2 text-sm font-semibold ${
                 isHomePage ? 'border-white/40 text-white hover:bg-white/10' : 'border-emerald-200 text-slate-700 hover:bg-emerald-50'
               }`}
             >
               Catalog
             </button>
-            <a
-              href="tel:+254711495522"
-              className="header-cta-call inline-flex items-center justify-center rounded-full bg-primary px-3 py-2 text-center text-sm font-semibold text-white"
-            >
-              <PhoneCall size={14} className="mr-1.5" />
-              Call
-            </a>
           </div>
         </div>
       )}
